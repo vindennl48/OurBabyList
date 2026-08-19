@@ -34,6 +34,14 @@ Every item has an "+ Add option" button under its price lines. You can add your 
 
 - `items` — `{ "<item-id>": true }` map for the "Mark purchased" checkboxes (keys are stable `data-id` slugs).
 - `options` — `{ "<item-id>": { "selected": "undecided" | "<custom-id>", "custom": [ { id, name, url, price, note } ] } }`.
+- `customItems` — `{ "<category-id>": [ { id, name, note, tag, price } ] }` — items you add yourself, grouped by category.
+
+## Add your own items
+
+Every category has an "+ Add item" button at the bottom of its list. Add your own finds — a **name**, an optional multiline **note**, an optional **tag** (Buy new / Used OK / Free), and an optional whole-dollar **price** — and they appear at the bottom of that section, synced across devices.
+
+- The built-in items are **permanent** and never change; your added items are separate and can be **edited** or **deleted**.
+- Added items get all the same features as the built-in ones: the "Mark purchased" checkbox *and* the full comparison-options list.
 
 **Security note:** the rules are intentionally **open** (`allow read, write: if true`). Anyone who finds the project ID can read or write the checklist. That's fine for a non-sensitive personal list; tighten `firestore.rules` if that changes.
 

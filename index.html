@@ -53,7 +53,7 @@
       </div>
 
       <!-- 01 Car seat -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="car-seat">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">01</span> Car Seat &amp; the Ride Home</h3>
           <div class="cat-hint">The only item you legally can't leave the hospital without.</div>
@@ -90,7 +90,7 @@
       </div>
 
       <!-- 02 Sleep -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="sleep">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">02</span> Sleep</h3>
           <div class="cat-hint">Room-share for the first 6 months. Bare, flat, firm — nothing else in the sleep space.</div>
@@ -151,7 +151,7 @@
       </div>
 
       <!-- 03 Feeding -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="feeding">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">03</span> Feeding</h3>
           <div class="cat-hint">Breastfeed + pump first, with a small formula backup so a rough night never becomes a panic.</div>
@@ -233,7 +233,7 @@
       </div>
 
       <!-- 04 Diapering -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="diapering">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">04</span> Diapering</h3>
           <div class="cat-hint">Disposable. Don't stockpile newborn size — she may skip it in two weeks.</div>
@@ -275,7 +275,7 @@
       </div>
 
       <!-- 05 Health kit -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="health">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">05</span> Health Kit &amp; Medicine Cabinet</h3>
           <div class="cat-hint">Have it all before she comes home. No OTC meds under ~3 months without the pediatrician's OK.</div>
@@ -349,7 +349,7 @@
       </div>
 
       <!-- 06 Clothing -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="clothing">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">06</span> Clothing (Winter)</h3>
           <div class="cat-hint">Layer = one more layer than you. Buy most sizes in 0–3M, not Newborn.</div>
@@ -399,7 +399,7 @@
       </div>
 
       <!-- 07 Bathing & skin -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="bathing">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">07</span> Bathing &amp; Skin</h3>
           <div class="cat-hint">Sponge baths only until the cord falls off (~1–3 weeks). Less is more on newborn skin.</div>
@@ -441,7 +441,7 @@
       </div>
 
       <!-- 08 Around the house -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="around-house">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">08</span> Around the House</h3>
           <div class="cat-hint">Small stuff that makes the difference between 3 a.m. chaos and calm.</div>
@@ -494,7 +494,7 @@
       </div>
 
       <!-- 09 Mom recovery -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="mom-recovery">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">09</span> Mom Recovery</h3>
           <div class="cat-hint">The category most people forget — and it's what protects your sleep and sanity.</div>
@@ -536,7 +536,7 @@
       </div>
 
       <!-- 10 Winter prep -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="winter-prep">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">10</span> Winter Prep (February)</h3>
           <div class="cat-hint">A little insurance for a winter baby in a house with real cold snaps.</div>
@@ -587,7 +587,7 @@
       </div>
 
       <!-- N1 On the go -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="on-the-go">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">01</span> On the Go</h3>
           <div class="cat-hint">Can wait 2–4 weeks.</div>
@@ -629,7 +629,7 @@
       </div>
 
       <!-- N2 Comfort -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="comfort">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">02</span> Comfort &amp; Soothing</h3>
           <div class="cat-hint">Nice, not necessary. Always check recalls on swings/bouncers.</div>
@@ -679,7 +679,7 @@
       </div>
 
       <!-- N3 Babyproofing -->
-      <div class="category reveal">
+      <div class="category reveal" data-id="babyproofing">
         <div class="cat-head">
           <h3 class="cat-title"><span class="cat-num">03</span> Babyproofing (later, ~4–6 months)</h3>
           <div class="cat-hint">Not needed before she comes home — do it before she crawls.</div>
@@ -874,8 +874,8 @@
         if (isNaN(n)) n = 0;
         return '$' + n.toLocaleString('en-US');
       }
-      function uid() {
-        return 'c_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+      function uid(prefix) {
+        return (prefix || 'c_') + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
       }
 
       // Whole-dollar currency mask: "1299" -> "$1,299", never cents.
@@ -938,24 +938,90 @@
       }
 
       // ---- state ----
-      var items = Array.prototype.slice.call(document.querySelectorAll('.item'));
-      var optionsState = {}; // data-id -> { selected, custom: [...] }
+      var categories = Array.prototype.slice.call(document.querySelectorAll('.category'));
+      var optionsState = {};        // data-id -> { selected, custom: [...] }
+      var customItemsState = {};    // category-id -> [ { id, name, note, tag, price } ]
+      var lastCustomItemsJson = null;
 
       function ensureOpt(id) {
         if (!optionsState[id]) optionsState[id] = { selected: 'undecided', custom: [] };
       }
 
-      // Inject the compare UI into every item (idempotent).
-      items.forEach(function (itemEl) {
+      // Inject the compare UI (badge + options + add-option form). Idempotent.
+      function injectCompare(itemEl) {
         var id = itemEl.getAttribute('data-id');
         if (!id) return;
-        var head = itemEl.querySelector('.item-head');
-        var badge = document.createElement('span');
-        badge.className = 'chosen-price';
-        badge.hidden = true;
-        head.appendChild(badge);
-        itemEl.querySelector('.item-body').insertAdjacentHTML('beforeend', buildCompareHTML(id));
-        maskPrice(itemEl.querySelector('.currency'));
+        if (!itemEl.querySelector('.chosen-price')) {
+          var badge = document.createElement('span');
+          badge.className = 'chosen-price';
+          badge.hidden = true;
+          itemEl.querySelector('.item-head').appendChild(badge);
+        }
+        if (!itemEl.querySelector('.compare')) {
+          itemEl.querySelector('.item-body').insertAdjacentHTML('beforeend', buildCompareHTML(id));
+          maskPrice(itemEl.querySelector('.currency'));
+        }
+      }
+
+      // ---- the "+ Add item" block injected into every category ----
+      function buildItemFormHTML() {
+        return '' +
+          '<div class="add-item-wrap">' +
+            '<button type="button" class="add-item">+ Add item</button>' +
+            '<form class="item-form" novalidate hidden>' +
+              '<label class="f-name"><span>Name</span><input name="name" type="text" required placeholder="e.g. Ear plugs"></label>' +
+              '<label class="f-note"><span>Note</span><textarea name="note" rows="2" placeholder="e.g. For the overnight drive"></textarea></label>' +
+              '<label><span>Tag</span><select name="tag">' +
+                '<option value="">—</option>' +
+                '<option value="new">Buy new</option>' +
+                '<option value="used">Used OK</option>' +
+                '<option value="free">Free</option>' +
+              '</select></label>' +
+              '<label><span>Price (Est.)</span><input name="price" type="text" inputmode="numeric" class="currency" placeholder="$0"></label>' +
+              '<div class="form-actions">' +
+                '<button type="submit" class="save">Save</button>' +
+                '<button type="button" class="item-cancel">Cancel</button>' +
+              '</div>' +
+            '</form>' +
+          '</div>';
+      }
+
+      function buildItemElement(ci) {
+        var li = document.createElement('li');
+        li.className = 'item custom-item';
+        li.setAttribute('data-id', ci.id);
+        var tagHtml = '';
+        if (ci.tag === 'new') tagHtml = '<span class="tag tag-new">Buy new</span>';
+        else if (ci.tag === 'used') tagHtml = '<span class="tag tag-used">Used OK</span>';
+        else if (ci.tag === 'free') tagHtml = '<span class="tag tag-free">Free</span>';
+        var noteHtml = ci.note ? '<p class="note">' + esc(ci.note) + '</p>' : '';
+        var priceHtml = '';
+        if (ci.price && String(ci.price).replace(/\D/g, '') !== '') {
+          priceHtml = '<div class="prices"><span class="price one"><em>Est.</em> — <b>' + money(ci.price) + '</b></span></div>';
+        }
+        li.innerHTML =
+          '<label class="check"><input type="checkbox" aria-label="Mark purchased"><span class="box"></span></label>' +
+          '<div class="item-body">' +
+            '<div class="item-head">' +
+              '<span class="name">' + esc(ci.name) + '</span>' + tagHtml +
+              '<span class="chosen-price" hidden></span>' +
+              '<span class="item-actions">' +
+                '<button type="button" class="edit-item" aria-label="Edit item">✎</button>' +
+                '<button type="button" class="delete-item" aria-label="Delete item">×</button>' +
+              '</span>' +
+            '</div>' +
+            noteHtml +
+            priceHtml +
+          '</div>';
+        return li;
+      }
+
+      // Hardcoded items get their compare UI once at startup; every category
+      // gets its "+ Add item" button + form.
+      Array.prototype.slice.call(document.querySelectorAll('.item:not(.custom-item)')).forEach(injectCompare);
+      categories.forEach(function (cat) {
+        cat.insertAdjacentHTML('beforeend', buildItemFormHTML());
+        maskPrice(cat.querySelector('.item-form .currency'));
       });
 
       function renderItem(itemEl) {
@@ -994,44 +1060,111 @@
         });
       }
 
-      function renderAll() { items.forEach(renderItem); }
+      function renderAll() {
+        Array.prototype.slice.call(document.querySelectorAll('.item')).forEach(renderItem);
+      }
+
+      function renderCustomItems() {
+        var json = JSON.stringify(customItemsState);
+        if (json === lastCustomItemsJson) return;
+        lastCustomItemsJson = json;
+        categories.forEach(function (cat) {
+          var catId = cat.getAttribute('data-id');
+          var list = cat.querySelector('.items');
+          Array.prototype.slice.call(list.querySelectorAll('.item.custom-item')).forEach(function (el) { el.remove(); });
+          (customItemsState[catId] || []).forEach(function (ci) {
+            var el = buildItemElement(ci);
+            list.appendChild(el);
+            injectCompare(el);
+          });
+        });
+      }
 
       function writeOptions() {
         docRef.set({ options: optionsState }, { merge: true }).catch(function () {});
       }
+      function writeCustomItems() {
+        docRef.set({ customItems: customItemsState }, { merge: true }).catch(function () {});
+      }
+      function syncItems() {
+        var state = {};
+        Array.prototype.slice.call(document.querySelectorAll('.item input[type="checkbox"]')).forEach(function (b) {
+          var id = b.closest('.item').getAttribute('data-id');
+          if (id) state[id] = b.checked;
+        });
+        docRef.set({ items: state }, { merge: true }).catch(function () {});
+      }
 
       // ---- purchased checkboxes (keyed by data-id) ----
-      var checkboxes = Array.prototype.slice.call(document.querySelectorAll('.item input[type="checkbox"]'));
-      function idFor(el) { return el.closest('.item').getAttribute('data-id'); }
       function applyItems(map) {
-        checkboxes.forEach(function (cb) {
-          var id = idFor(cb);
+        Array.prototype.slice.call(document.querySelectorAll('.item input[type="checkbox"]')).forEach(function (cb) {
+          var id = cb.closest('.item').getAttribute('data-id');
           if (id && map && Object.prototype.hasOwnProperty.call(map, id)) cb.checked = !!map[id];
         });
       }
-      checkboxes.forEach(function (cb) {
-        cb.addEventListener('change', function () {
-          var state = {};
-          checkboxes.forEach(function (b) { state[idFor(b)] = b.checked; });
-          docRef.set({ items: state }, { merge: true }).catch(function () {});
-        });
-      });
 
-      // ---- selection (radio) change ----
+      function categoryOfItem(id) {
+        for (var catId in customItemsState) {
+          if (!customItemsState.hasOwnProperty(catId)) continue;
+          var arr = customItemsState[catId] || [];
+          for (var i = 0; i < arr.length; i++) if (arr[i].id === id) return catId;
+        }
+        return null;
+      }
+      function findItem(id) {
+        var catId = categoryOfItem(id);
+        if (!catId) return null;
+        var arr = customItemsState[catId] || [];
+        for (var i = 0; i < arr.length; i++) if (arr[i].id === id) return arr[i];
+        return null;
+      }
+      function removeItem(id) {
+        var catId = categoryOfItem(id);
+        if (!catId) return;
+        customItemsState[catId] = (customItemsState[catId] || []).filter(function (x) { return x.id !== id; });
+        delete optionsState[id];
+        writeCustomItems();
+        writeOptions();
+        renderCustomItems();
+        syncItems();
+        renderAll();
+      }
+
+      // ---- selection (radio) + purchased (checkbox) changes ----
       document.addEventListener('change', function (e) {
         var t = e.target;
-        if (!t.matches('.options input[type="radio"]')) return;
-        var itemEl = t.closest('.item');
-        var id = itemEl.getAttribute('data-id');
-        ensureOpt(id);
-        optionsState[id].selected = t.value;
-        writeOptions();
-        renderItem(itemEl);
+        if (t.matches('.options input[type="radio"]')) {
+          var itemEl = t.closest('.item');
+          var id = itemEl.getAttribute('data-id');
+          ensureOpt(id);
+          optionsState[id].selected = t.value;
+          writeOptions();
+          renderItem(itemEl);
+        } else if (t.matches('.item input[type="checkbox"]')) {
+          syncItems();
+        }
       });
 
-      // ---- add / edit / delete ----
+      // ---- add / edit / delete (items and options) ----
       document.addEventListener('click', function (e) {
         var t = e.target;
+
+        if (t.classList.contains('add-item')) {
+          var iform = t.closest('.category').querySelector('.item-form');
+          iform._editingId = null;
+          iform.reset();
+          iform.hidden = false;
+          iform.elements.name.focus();
+          return;
+        }
+        if (t.classList.contains('item-cancel')) {
+          var iform2 = t.closest('.item-form');
+          iform2.hidden = true;
+          iform2._editingId = null;
+          iform2.reset();
+          return;
+        }
+
         var itemEl = t.closest ? t.closest('.item') : null;
         if (!itemEl) return;
         var id = itemEl.getAttribute('data-id');
@@ -1066,43 +1199,88 @@
           if (optionsState[id].selected === did) optionsState[id].selected = 'undecided';
           writeOptions();
           renderItem(itemEl);
+        } else if (t.classList.contains('edit-item')) {
+          var ci = findItem(id);
+          if (!ci) return;
+          var iform3 = itemEl.closest('.category').querySelector('.item-form');
+          iform3._editingId = id;
+          iform3.elements.name.value = ci.name;
+          iform3.elements.note.value = ci.note || '';
+          iform3.elements.tag.value = ci.tag || '';
+          iform3.elements.price.value = (ci.price && String(ci.price).replace(/\D/g, '') !== '') ? money(ci.price) : '';
+          iform3.hidden = false;
+          iform3.elements.name.focus();
+        } else if (t.classList.contains('delete-item')) {
+          if (!confirm('Delete this item?')) return;
+          removeItem(id);
         }
       });
 
       document.addEventListener('submit', function (e) {
         var form = e.target;
-        if (!form.classList || !form.classList.contains('option-form')) return;
-        e.preventDefault();
-        var itemEl = form.closest('.item');
-        var id = itemEl.getAttribute('data-id');
+        if (!form.classList) return;
 
-        var name = form.elements.name.value.trim();
-        if (!name) { form.elements.name.focus(); return; }
-        var url = form.elements.url.value.trim();
-        if (url && !/^https?:\/\//i.test(url)) url = 'https://' + url;
-        var price = form.elements.price.value.replace(/\D/g, '') || '0';
-        var note = form.elements.note.value.trim();
+        if (form.classList.contains('option-form')) {
+          e.preventDefault();
+          var itemEl = form.closest('.item');
+          var id = itemEl.getAttribute('data-id');
 
-        ensureOpt(id);
-        if (form._editingId) {
-          var entry = optionsState[id].custom.filter(function (c) { return c.id === form._editingId; })[0];
-          if (entry) { entry.name = name; entry.url = url; entry.price = price; entry.note = note; }
-          form._editingId = null;
-        } else {
-          var nid = uid();
-          optionsState[id].custom.push({ id: nid, name: name, url: url, price: price, note: note });
-          optionsState[id].selected = nid; // auto-select the new entry
+          var name = form.elements.name.value.trim();
+          if (!name) { form.elements.name.focus(); return; }
+          var url = form.elements.url.value.trim();
+          if (url && !/^https?:\/\//i.test(url)) url = 'https://' + url;
+          var price = form.elements.price.value.replace(/\D/g, '') || '0';
+          var note = form.elements.note.value.trim();
+
+          ensureOpt(id);
+          if (form._editingId) {
+            var entry = optionsState[id].custom.filter(function (c) { return c.id === form._editingId; })[0];
+            if (entry) { entry.name = name; entry.url = url; entry.price = price; entry.note = note; }
+            form._editingId = null;
+          } else {
+            var nid = uid();
+            optionsState[id].custom.push({ id: nid, name: name, url: url, price: price, note: note });
+            optionsState[id].selected = nid; // auto-select the new entry
+          }
+          form.hidden = true;
+          form.reset();
+          writeOptions();
+          renderItem(itemEl);
+
+        } else if (form.classList.contains('item-form')) {
+          e.preventDefault();
+          var cat = form.closest('.category');
+          var catId = cat.getAttribute('data-id');
+
+          var iname = form.elements.name.value.trim();
+          if (!iname) { form.elements.name.focus(); return; }
+          var inote = form.elements.note.value.trim();
+          var itag = form.elements.tag.value;
+          var iprice = form.elements.price.value.replace(/\D/g, '');
+
+          if (!customItemsState[catId]) customItemsState[catId] = [];
+          if (form._editingId) {
+            var it = findItem(form._editingId);
+            if (it) { it.name = iname; it.note = inote; it.tag = itag; it.price = iprice; }
+            form._editingId = null;
+          } else {
+            var iid = uid('i_');
+            customItemsState[catId].push({ id: iid, name: iname, note: inote, tag: itag, price: iprice });
+          }
+          form.hidden = true;
+          form.reset();
+          writeCustomItems();
+          renderCustomItems();
+          renderAll();
         }
-        form.hidden = true;
-        form.reset();
-        writeOptions();
-        renderItem(itemEl);
       });
 
       // ---- realtime: load once, then stay in sync across devices ----
       docRef.onSnapshot(function (snap) {
         if (!snap.exists) return;
         var data = snap.data();
+        customItemsState = data.customItems || {};
+        renderCustomItems();
         applyItems(data.items);
         optionsState = data.options || {};
         renderAll();

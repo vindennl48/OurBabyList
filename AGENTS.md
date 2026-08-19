@@ -79,6 +79,11 @@ button, and the inline add/edit form) — do not hand-author it. Each `.item` mu
 **stable, unique `data-id` slug** (e.g. `infant-car-seat`); this is the canonical Firestore key.
 Do not rename a `data-id` once it exists (it would orphan saved entries).
 
+Each `.category` block also carries a stable `data-id` slug (e.g. `car-seat`) — the key for
+the `customItems` map. The "+ Add item" button/form and any user-added `.item.custom-item`
+rows are **injected by JS at runtime**. Hardcoded items stay permanent — never edit, rename,
+or remove them.
+
 ### Tags (badges)
 - `.tag tag-new` — "Buy new"
 - `.tag tag-used` — "Used OK"
@@ -124,6 +129,12 @@ Key variables: `--bg`, `--surface`, `--ink`, `--ink-soft`, `--accent`,
   the tag. The `.prices` subtext (Budget/Spend/Est./Optional) is **not**
   part of this list — leave it alone. `items` ("Mark purchased") and `options` are both
   keyed by the item's `data-id`, **not** the `.name` text.
+- **Custom items.** Each category has a runtime-injected "+ Add item" form that
+  appends user-added items (Firestore `customItems` map, keyed by category
+  `data-id`; each entry `{ id, name, note, tag, price }`, whole-dollar `price`).
+  Added items get the purchased checkbox + comparison options automatically and
+  can be edited or deleted (delete also cleans orphaned `items`/`options` keys).
+  Hardcoded items are permanent — never edit, rename, or remove them.
 - **Firestore is open by design.** `firestore.rules` allows `read, write: if true`
   (owner's choice — non-sensitive personal list). If the rules change, redeploy:
   `firebase deploy --only firestore --project ourbabylist`.

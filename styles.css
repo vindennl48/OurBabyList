@@ -238,14 +238,14 @@ a.opt-name:hover { text-decoration: underline; }
 .opt-note { color: var(--muted); font-size: 0.82rem; white-space: pre-line; }
 .option-undecided .opt-name { color: var(--muted); font-style: italic; font-weight: 500; }
 
-.option-actions { margin-left: auto; display: flex; gap: 4px; }
-.edit-option, .delete-option {
+.option-actions, .item-actions { margin-left: auto; display: flex; gap: 4px; }
+.edit-option, .delete-option, .edit-item, .delete-item {
   border: 1px solid var(--line-strong); background: var(--surface);
   color: var(--ink-soft); width: 26px; height: 26px; border-radius: 8px;
   cursor: pointer; font-size: 0.85rem; line-height: 1; transition: 0.15s;
 }
-.edit-option:hover { color: var(--accent-2); border-color: var(--accent-2); }
-.delete-option:hover { color: #b3261e; border-color: #b3261e; }
+.edit-option:hover, .edit-item:hover { color: var(--accent-2); border-color: var(--accent-2); }
+.delete-option:hover, .delete-item:hover { color: #b3261e; border-color: #b3261e; }
 
 .add-option {
   margin-top: 8px; border: 1px dashed var(--line-strong); background: transparent;
@@ -254,32 +254,45 @@ a.opt-name:hover { text-decoration: underline; }
 }
 .add-option:hover { background: var(--lavender); border-style: solid; }
 
-.option-form {
+.add-item-wrap { border-top: 1px solid var(--line); }
+.add-item {
+  display: block; margin: 16px auto 20px; border: 1px dashed var(--line-strong); background: transparent;
+  color: var(--accent-2); font-weight: 600; font-size: 0.85rem; font-family: inherit;
+  padding: 8px 18px; border-radius: 999px; cursor: pointer; transition: 0.15s;
+}
+.add-item:hover { background: var(--lavender); border-style: solid; }
+
+.option-form, .item-form {
   margin-top: 10px; padding: 14px; border: 1px solid var(--line);
   border-radius: 14px; background: var(--surface-2);
   display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
 }
-.option-form[hidden] { display: none !important; }
-.option-form label {
+.item-form { margin: 0 24px 20px; }
+.option-form[hidden], .item-form[hidden] { display: none !important; }
+.option-form label, .item-form label {
   display: flex; flex-direction: column; gap: 4px; font-size: 0.74rem;
   font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em;
 }
-.option-form label.f-note { grid-column: 1 / -1; }
-.option-form input, .option-form textarea {
+.option-form label.f-note, .item-form label.f-note, .item-form label.f-name { grid-column: 1 / -1; }
+.option-form input, .option-form textarea, .option-form select,
+.item-form input, .item-form textarea, .item-form select {
   font-family: inherit; font-size: 0.92rem; color: var(--ink);
   padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: 10px;
   background: var(--surface); text-transform: none; letter-spacing: normal; font-weight: 400;
   line-height: 1.45;
 }
-.option-form input:focus, .option-form textarea:focus { outline: 2px solid var(--accent-2); outline-offset: 1px; }
-.option-form textarea { resize: vertical; min-height: 56px; }
+.option-form input:focus, .option-form textarea:focus, .option-form select:focus,
+.item-form input:focus, .item-form textarea:focus, .item-form select:focus {
+  outline: 2px solid var(--accent-2); outline-offset: 1px;
+}
+.option-form textarea, .item-form textarea { resize: vertical; min-height: 56px; }
 .form-actions { grid-column: 1 / -1; display: flex; gap: 8px; justify-content: flex-end; }
 .form-actions .save {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #fff; border: none; padding: 8px 16px; border-radius: 999px;
   font-weight: 600; font-family: inherit; cursor: pointer;
 }
-.form-actions .cancel {
+.form-actions .cancel, .form-actions .item-cancel {
   background: var(--surface); color: var(--ink-soft); border: 1px solid var(--line-strong);
   padding: 8px 16px; border-radius: 999px; font-family: inherit; cursor: pointer;
 }
@@ -344,7 +357,7 @@ footer a:hover { text-decoration: underline; }
   .item { padding: 14px 16px; }
   .cat-head { padding: 18px 16px 12px; }
   .stat { min-width: 130px; }
-  .option-form { grid-template-columns: 1fr; }
+  .option-form, .item-form { grid-template-columns: 1fr; }
   .option { gap: 8px; }
 }
 
@@ -354,6 +367,6 @@ footer a:hover { text-decoration: underline; }
   body { background: #fff; color: #1a1a1a; }
   .category, .panel, .safety { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
   .reveal { opacity: 1; transform: none; }
-  .add-option, .option-form, .option-actions, .chosen-price { display: none !important; }
+  .add-option, .add-item, .add-item-wrap, .option-form, .item-form, .option-actions, .item-actions, .chosen-price { display: none !important; }
   .option { border-color: #ddd; }
 }

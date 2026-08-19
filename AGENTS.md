@@ -126,21 +126,26 @@ Key variables: `--bg`, `--surface`, `--ink`, `--ink-soft`, `--accent`,
 
 ---
 
-## 6. Commands
+## 6. Git Rules & Commands
+
+**Git policy — non-negotiable:**
+
+- **NEVER run `git push`** (or `git push --force`, `-f`, or any other
+  remote-mutating command). Only the owner pushes.
+- **ONLY run `git commit` when explicitly asked.** Never commit automatically or
+  as part of finishing a task unless the owner requested it.
 
 ```bash
 # Preview locally (no server needed — just open it)
 open index.html
 
-# Commit + push to GitHub Pages
-cd /Users/mitch/Documents/code/OurBabyList
+# Commit — ONLY when the owner explicitly asks
 git add .
 git commit -m "Describe the change"
-git push
 ```
 
-After a push, the live site updates automatically (GitHub Pages is already
-configured to serve `main` / `(root)`).
+Publishing is the owner's job: they push, and GitHub Pages (already configured
+for `main` / `(root)`) serves the site.
 
 ---
 
@@ -155,3 +160,4 @@ configured to serve `main` / `(root)`).
 | Editing safety/medical wording casually | It reflects pediatric guidance; changes need owner approval. |
 | Changing an item price without updating the budget tables/hero stats | The numbers must reconcile. |
 | Hard-coding new colors instead of using CSS variables | Breaks theming consistency. |
+| Running `git push` or `git commit` unprompted | Never push; only commit when explicitly asked. |

@@ -13,9 +13,10 @@ single-page baby-prep checklist for our daughter Emery Laine (due February 3,
 | Type | Static site — **no build step, no dependencies, no framework** |
 | Language | HTML + CSS + a tiny bit of vanilla JS |
 | Hosting | GitHub Pages (`main` branch, `/ (root)`) |
+| Backend | Firebase Firestore (project `ourbabylist`, open rules) — checkboxes sync across devices |
 | Fonts | Google Fonts via `<link>` (Fraunces, DM Sans, Caveat) — works offline from `file://` |
 | Styling | Single `styles.css`, theming via CSS custom properties |
-| JS | One `IntersectionObserver` scroll-reveal at the bottom of `index.html`. Nothing else. |
+| JS | Scroll-reveal (`IntersectionObserver`) + Firebase Firestore sync (SDK via CDN). Config lives in `index.html`. |
 
 ---
 
@@ -23,10 +24,13 @@ single-page baby-prep checklist for our daughter Emery Laine (due February 3,
 
 ```
 .
-├── index.html    # All content + structure + the reveal script
-├── styles.css    # All styling + both theme token sets
-├── README.md     # Publish instructions
-└── AGENTS.md     # This file
+├── index.html              # All content + structure + reveal + Firebase sync
+├── styles.css              # All styling + both theme token sets
+├── firebase.json           # Firestore deploy config (rules + indexes)
+├── firestore.rules         # Firestore security rules (open: allow read, write if true)
+├── firestore.indexes.json  # Firestore indexes (empty)
+├── README.md               # Publish instructions
+└── AGENTS.md               # This file
 ```
 
 **Rules:**
@@ -104,9 +108,13 @@ Key variables: `--bg`, `--surface`, `--ink`, `--ink-soft`, `--accent`,
 
 ## 5. Content & Editing Conventions
 
-- **Static prices.** There is deliberately **no cost calculator**. Checkboxes are
-  visual-only (`:checked` styling in CSS) and must not sum anything. Do not add
-  JavaScript that totals prices unless the owner asks for it.
+- **Static prices.** There is deliberately **no cost calculator**. Checkboxes
+  sync to Firestore (collection `checklist`, doc `emery`, field `items` map keyed
+  by item name) and must not sum anything. Do not add JavaScript that totals
+  prices unless the owner asks.
+- **Firestore is open by design.** `firestore.rules` allows `read, write: if true`
+  (owner's choice — non-sensitive personal list). If the rules change, redeploy:
+  `firebase deploy --only firestore --project ourbabylist`.
 - **Keep the budget tables in sync.** `section#budget` contains two itemized
   tables ("Budget Path" ≈ $1,250, "Comfortable Path" ≈ $1,890) plus deferred and
   monthly totals, and four `.stat` pills in the hero. If you change an item's

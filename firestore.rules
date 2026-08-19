@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /checklist/{docId} {
+      // Open rules: anyone can read/write the checklist doc. Intended for a
+      // personal, non-sensitive list. Tighten here if privacy becomes a concern.
+      allow read, write: if true;
+    }
+  }
+}

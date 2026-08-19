@@ -61,7 +61,7 @@ single-page baby-prep checklist for our daughter Emery Laine (due February 3,
 ### Item markup (the unit you'll edit most)
 
 ```html
-<li class="item">
+<li class="item" data-id="infant-car-seat">
   <label class="check"><input type="checkbox" aria-label="Mark purchased"><span class="box"></span></label>
   <div class="item-body">
     <div class="item-head"><span class="name">Item name</span><span class="tag tag-new">Buy new</span></div>
@@ -73,6 +73,11 @@ single-page baby-prep checklist for our daughter Emery Laine (due February 3,
   </div>
 </li>
 ```
+
+The **`.compare` comparison UI is injected by JS at runtime** (undecided radio, "+ Add option"
+button, and the inline add/edit form) — do not hand-author it. Each `.item` must carry a
+**stable, unique `data-id` slug** (e.g. `infant-car-seat`); this is the canonical Firestore key.
+Do not rename a `data-id` once it exists (it would orphan saved entries).
 
 ### Tags (badges)
 - `.tag tag-new` — "Buy new"
@@ -109,9 +114,16 @@ Key variables: `--bg`, `--surface`, `--ink`, `--ink-soft`, `--accent`,
 ## 5. Content & Editing Conventions
 
 - **Static prices.** There is deliberately **no cost calculator**. Checkboxes
-  sync to Firestore (collection `checklist`, doc `emery`, field `items` map keyed
-  by item name) and must not sum anything. Do not add JavaScript that totals
-  prices unless the owner asks.
+  sync to Firestore (collection `checklist`, doc `emery`) and must not sum anything.
+  Do not add JavaScript that totals prices unless the owner asks.
+- **Comparison options.** Every item has a runtime-injected list of selectable
+  entries (Firestore `options` map, keyed by `data-id`): a built-in `"undecided"`
+  entry (hidden until the first custom entry exists) plus user-added `custom`
+  entries (`{ id, name, url, price, note }`, whole-dollar `price` string). One
+  selection per item; the chosen price shows in a `.chosen-price` badge next to
+  the tag. The `.prices` subtext (Budget/Spend/Est./Optional) is **not**
+  part of this list — leave it alone. `items` ("Mark purchased") and `options` are both
+  keyed by the item's `data-id`, **not** the `.name` text.
 - **Firestore is open by design.** `firestore.rules` allows `read, write: if true`
   (owner's choice — non-sensitive personal list). If the rules change, redeploy:
   `firebase deploy --only firestore --project ourbabylist`.

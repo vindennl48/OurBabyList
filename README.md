@@ -20,6 +20,21 @@ A single-page checklist of everything to buy before our baby girl comes home, wi
 
 Checking a box saves it to Firestore (project `ourbabylist`, collection `checklist`, document `emery`). Every device viewing the page loads the same checkmarks and updates within a second of any change — no account or login needed.
 
+## Comparison options (add your own finds)
+
+Every item has an "+ Add option" button under its price lines. You can add your own finds — a **name**, an optional **link**, a **price** (whole dollars), and an optional multiline **note** — to compare multiple versions of the same thing (e.g. different car seats).
+
+- Each added entry gets a checkbox you can tick to mark it as **the one you want to buy**. Only one entry per item can be ticked at a time.
+- A built-in **"Undecided"** entry appears once you've added your first find — it's selected until you pick something, so you can always switch back to "no decision yet."
+- When you tick an entry, its price shows in a small badge next to the item's tag (e.g. next to "Buy new").
+- Entries can be edited or deleted; the built-in Budget/Spend/Est. price lines are **not** part of this list and never change.
+- Everything (the choices *and* the entries) syncs across devices in real time, same as the checkmarks.
+
+**Firestore shape** (inside the same `checklist/emery` doc):
+
+- `items` — `{ "<item-id>": true }` map for the "Mark purchased" checkboxes (keys are stable `data-id` slugs).
+- `options` — `{ "<item-id>": { "selected": "undecided" | "<custom-id>", "custom": [ { id, name, url, price, note } ] } }`.
+
 **Security note:** the rules are intentionally **open** (`allow read, write: if true`). Anyone who finds the project ID can read or write the checklist. That's fine for a non-sensitive personal list; tighten `firestore.rules` if that changes.
 
 To update the rules, edit `firestore.rules` and redeploy:

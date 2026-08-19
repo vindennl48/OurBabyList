@@ -19,6 +19,7 @@
   --accent-2: #9b3bb5; /* purple  */
   --maroon: #7e1f47;
   --lavender: #efe0f8;
+  --lavender-soft: #f7f0fb;
   --blush: #fbe0eb;
   --rose: #ef8fb6;
   --must: #a82363;
@@ -48,6 +49,7 @@
   --accent-2: #c06bff;
   --maroon: #ff7ab0;
   --lavender: rgba(192, 107, 255, 0.16);
+  --lavender-soft: rgba(192, 107, 255, 0.08);
   --blush: rgba(255, 79, 159, 0.16);
   --rose: #ff7ab8;
   --must: #ff6fae;
@@ -339,7 +341,12 @@ table.break tr.total td.num { color: var(--accent); }
 .note-list li::before { content: "♡"; position: absolute; left: 0; color: var(--accent); }
 
 /* ---------- Selected-so-far running total ---------- */
-.selected-total { text-align: center; margin-bottom: 24px; }
+.selected-total {
+  text-align: center;
+  margin-bottom: 24px;
+  background: var(--lavender-soft);
+  border-color: var(--accent-2);
+}
 .selected-total h3 { font-size: 1.3rem; }
 .selected-total .panel-sub { margin-bottom: 8px; }
 .selected-total-amount {

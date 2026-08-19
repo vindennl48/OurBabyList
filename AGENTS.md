@@ -52,7 +52,7 @@ single-page baby-prep checklist for our daughter Emery Laine (due February 3,
   header.hero → eyebrow, h1, .sub, .lede, .stats (4 .stat pills)
   main
     section#must-have.part.must      → 10 .category blocks
-    section#nice-to-have.part.nice   →  3 .category blocks
+    section#nice-to-have.part.nice   →  4 .category blocks (incl. "Sleep (later)" — crib + mattress)
     section#budget                    → 2×2 .panel tables (budget/comfortable, deferred/ongoing)
     section#safety                    → 5-rule list
   footer → name, sources
@@ -118,9 +118,15 @@ Key variables: `--bg`, `--surface`, `--ink`, `--ink-soft`, `--accent`,
 
 ## 5. Content & Editing Conventions
 
-- **Static prices.** There is deliberately **no cost calculator**. Checkboxes
-  sync to Firestore (collection `checklist`, doc `emery`) and must not sum anything.
-  Do not add JavaScript that totals prices unless the owner asks.
+- **Static prices + selected total.** The Budget/Spend/Est. subtext and the
+  budget tables are static and must never be summed. The owner-approved
+  exceptions are the "Selected so far" running total and its hero
+  "Upfront"/"Later" cards, which sum only the *selected comparison-option*
+  prices — Undecided counts $0 — split by section (must-have → Upfront,
+  nice-to-have → Later) with a per-category breakdown, plus a **purchased**
+  line that sums the same prices for items marked "purchased". All derived on
+  the fly from the `options` map + checkbox state, never stored. Do not add
+  other price-totaling scripts.
 - **Comparison options.** Every item has a runtime-injected list of selectable
   entries (Firestore `options` map, keyed by `data-id`): a built-in `"undecided"`
   entry (hidden until the first custom entry exists) plus user-added `custom`
@@ -186,7 +192,7 @@ for `main` / `(root)`) serves the site.
 |---|---|
 | Adding a framework/build step | The point is a single static file that "just works." |
 | Inline styles in `index.html` | All styling belongs in `styles.css`. |
-| Adding a price-total script | Static prices are an explicit requirement. |
+| Adding a price-total script that sums the static `.prices`/budget numbers | Only the "Selected so far" total (selected option prices) is intended. |
 | Deleting `[data-theme="b"]` tokens | Future dark-mode option; harmless to keep. |
 | Editing safety/medical wording casually | It reflects pediatric guidance; changes need owner approval. |
 | Changing an item price without updating the budget tables/hero stats | The numbers must reconcile. |

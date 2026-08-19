@@ -43,6 +43,10 @@ Every category has an "+ Add item" button at the bottom of its list. Add your ow
 - The built-in items are **permanent** and never change; your added items are separate and can be **edited** or **deleted**.
 - Added items get all the same features as the built-in ones: the "Mark purchased" checkbox *and* the full comparison-options list.
 
+## Your selected total
+
+The Money section and the hero show a live **running total** of the options you've picked, split into **Upfront** (Must-Have) and **Later** (Nice-to-Have). The Money panel breaks each down **by category**; the hero shows the two totals as highlight cards, each with a **selected** total and a **purchased** total (items you've marked "purchased"). Choosing an option adds its price; "Undecided" (or nothing) adds $0. It's computed on the fly from your selections — nothing extra is stored — and updates instantly on every device.
+
 **Security note:** the rules are intentionally **open** (`allow read, write: if true`). Anyone who finds the project ID can read or write the checklist. That's fine for a non-sensitive personal list; tighten `firestore.rules` if that changes.
 
 To update the rules, edit `firestore.rules` and redeploy:

@@ -126,7 +126,8 @@ h1, h2, h3, h4 { font-family: "Fraunces", Georgia, serif; font-weight: 600; line
 .hero .sub b { color: var(--accent); font-weight: 600; }
 .hero p.lede { max-width: 560px; margin: 18px auto 0; color: var(--ink-soft); font-size: 1.02rem; }
 
-.stats { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 34px; }
+.stats { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 34px; }
+.stats-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
 .stat {
   backdrop-filter: blur(var(--blur)) saturate(140%);
   -webkit-backdrop-filter: blur(var(--blur)) saturate(140%);
@@ -136,6 +137,21 @@ h1, h2, h3, h4 { font-family: "Fraunces", Georgia, serif; font-weight: 600; line
 .stat .k { font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; }
 .stat .v { font-family: "Fraunces", serif; font-size: 1.5rem; font-weight: 700; margin-top: 2px; color: var(--ink); }
 .stat .v small { font-size: 0.82rem; font-family: "DM Sans", sans-serif; color: var(--ink-soft); font-weight: 500; }
+
+/* Selected total — highlighted card (gradient), same size as the other stats */
+.stat-selected {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-color: transparent;
+  box-shadow: 0 20px 45px -22px rgba(155, 59, 181, 0.6);
+}
+.stat-selected .k { color: rgba(255, 255, 255, 0.9); }
+.stat-selected .v { color: #fff; }
+.stat-selected .v small { color: rgba(255, 255, 255, 0.92); }
+.stat-selected .v-sub {
+  font-size: 0.95rem; font-weight: 700; color: #fff;
+  margin-top: 6px; font-variant-numeric: tabular-nums;
+}
+.stat-selected .v-sub small { font-size: 0.72rem; font-weight: 500; color: rgba(255, 255, 255, 0.82); }
 
 /* ---------- Sections ---------- */
 section.part { padding: 34px 0 8px; }
@@ -321,6 +337,33 @@ table.break tr.total td.num { color: var(--accent); }
 .note-list { list-style: none; margin-top: 14px; }
 .note-list li { position: relative; padding-left: 22px; color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 8px; }
 .note-list li::before { content: "♡"; position: absolute; left: 0; color: var(--accent); }
+
+/* ---------- Selected-so-far running total ---------- */
+.selected-total { text-align: center; margin-bottom: 24px; }
+.selected-total h3 { font-size: 1.3rem; }
+.selected-total .panel-sub { margin-bottom: 8px; }
+.selected-total-amount {
+  font-family: "Fraunces", serif; font-weight: 700;
+  font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1;
+  margin: 10px 0 18px; color: var(--accent);
+}
+.sel-group { max-width: 440px; margin: 0 auto 18px; text-align: left; }
+.sel-group-head {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  border-bottom: 1px solid var(--line-strong); padding-bottom: 4px;
+}
+.sel-group-head h4 { font-family: "Fraunces", serif; font-size: 1.05rem; font-weight: 600; color: var(--ink); }
+.sel-group-total { font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.selected-breakdown { list-style: none; margin-top: 2px; }
+.selected-breakdown li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  padding: 8px 2px; border-bottom: 1px solid var(--line);
+}
+.selected-breakdown li:last-child { border-bottom: none; }
+.pick-name { color: var(--ink-soft); font-size: 0.9rem; }
+.pick-price { font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.selected-empty { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+.selected-empty[hidden] { display: none !important; }
 
 /* ---------- Safety / footnotes ---------- */
 .safety { background: var(--surface); border: 1px solid var(--line); border-radius: 22px;

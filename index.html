@@ -35,10 +35,16 @@
     <div class="sub">for <b>Emery Laine</b> ♡ due <b>February 3, 2027</b></div>
     <p class="lede">Everything to have ready before our girl comes home — organized by what we actually need first, with budget and "worth-it" options and honest prices.</p>
     <div class="stats">
-      <div class="stat"><div class="k">Upfront</div><div class="v">≈ $1,250 <small>budget</small></div></div>
-      <div class="stat"><div class="k">Upfront</div><div class="v">≈ $1,890 <small>comfortable</small></div></div>
-      <div class="stat"><div class="k">Later</div><div class="v">≈ $520–800 <small>crib · stroller · proofing</small></div></div>
-      <div class="stat"><div class="k">Monthly</div><div class="v">≈ $85–200 <small>diapers · wipes · formula</small></div></div>
+      <div class="stats-row">
+        <div class="stat stat-selected"><div class="k">Upfront</div><div class="v">≈ <span class="sel-upfront">$0</span> <small>selected</small></div><div class="v-sub"><span class="pur-upfront">$0</span> <small>purchased</small></div></div>
+        <div class="stat stat-selected"><div class="k">Later</div><div class="v">≈ <span class="sel-later">$0</span> <small>selected</small></div><div class="v-sub"><span class="pur-later">$0</span> <small>purchased</small></div></div>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><div class="k">Upfront</div><div class="v">≈ $1,250 <small>budget</small></div></div>
+        <div class="stat"><div class="k">Upfront</div><div class="v">≈ $1,890 <small>comfortable</small></div></div>
+        <div class="stat"><div class="k">Later</div><div class="v">≈ $705–1,195 <small>crib · stroller · comfort · proofing</small></div></div>
+        <div class="stat"><div class="k">Monthly</div><div class="v">≈ $85–200 <small>diapers · wipes · formula</small></div></div>
+      </div>
     </div>
   </header>
 
@@ -105,22 +111,6 @@
                 <span class="price"><em>Budget</em> Baby Delight Beside Me Doze Deluxe — <b>$96</b></span>
                 <span class="price"><em>Spend</em> Halo BassiNest Swivel Sleeper 3.0 — <b>$220</b></span>
               </div>
-            </div>
-          </li>
-          <li class="item" data-id="crib-own-room-later">
-            <label class="check"><input type="checkbox" aria-label="Mark purchased"><span class="box"></span></label>
-            <div class="item-body">
-              <div class="item-head"><span class="name">Crib (own room, later)</span><span class="tag tag-used">Used OK</span></div>
-              <p class="note">CPSC 2011+ standards, no drop-sides. Can wait a few months.</p>
-              <div class="prices"><span class="price one"><em>Est.</em> — <b>$150–300</b></span></div>
-            </div>
-          </li>
-          <li class="item" data-id="crib-mattress">
-            <label class="check"><input type="checkbox" aria-label="Mark purchased"><span class="box"></span></label>
-            <div class="item-body">
-              <div class="item-head"><span class="name">Crib mattress</span><span class="tag tag-new">Buy new</span></div>
-              <p class="note">Never buy used. Firm and snug — no more than a two-finger gap.</p>
-              <div class="prices"><span class="price one"><em>Est.</em> — <b>$100–150</b></span></div>
             </div>
           </li>
           <li class="item" data-id="fitted-sheets-waterproof-protector">
@@ -586,10 +576,36 @@
         <p>Nothing here is needed the day she comes home. Buy as you go — most of it is safe to thrift.</p>
       </div>
 
-      <!-- N1 On the go -->
+      <!-- N1 Sleep (later) -->
+      <div class="category reveal" data-id="sleep-later">
+        <div class="cat-head">
+          <h3 class="cat-title"><span class="cat-num">01</span> Sleep (later)</h3>
+          <div class="cat-hint">Crib + mattress, for when she moves to her own room.</div>
+        </div>
+        <ul class="items">
+          <li class="item" data-id="crib-own-room-later">
+            <label class="check"><input type="checkbox" aria-label="Mark purchased"><span class="box"></span></label>
+            <div class="item-body">
+              <div class="item-head"><span class="name">Crib (own room, later)</span><span class="tag tag-used">Used OK</span></div>
+              <p class="note">CPSC 2011+ standards, no drop-sides. Can wait a few months.</p>
+              <div class="prices"><span class="price one"><em>Est.</em> — <b>$150–300</b></span></div>
+            </div>
+          </li>
+          <li class="item" data-id="crib-mattress">
+            <label class="check"><input type="checkbox" aria-label="Mark purchased"><span class="box"></span></label>
+            <div class="item-body">
+              <div class="item-head"><span class="name">Crib mattress</span><span class="tag tag-new">Buy new</span></div>
+              <p class="note">Never buy used. Firm and snug — no more than a two-finger gap.</p>
+              <div class="prices"><span class="price one"><em>Est.</em> — <b>$100–150</b></span></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- N2 On the go -->
       <div class="category reveal" data-id="on-the-go">
         <div class="cat-head">
-          <h3 class="cat-title"><span class="cat-num">01</span> On the Go</h3>
+          <h3 class="cat-title"><span class="cat-num">02</span> On the Go</h3>
           <div class="cat-hint">Can wait 2–4 weeks.</div>
         </div>
         <ul class="items">
@@ -628,10 +644,10 @@
         </ul>
       </div>
 
-      <!-- N2 Comfort -->
+      <!-- N3 Comfort -->
       <div class="category reveal" data-id="comfort">
         <div class="cat-head">
-          <h3 class="cat-title"><span class="cat-num">02</span> Comfort &amp; Soothing</h3>
+          <h3 class="cat-title"><span class="cat-num">03</span> Comfort &amp; Soothing</h3>
           <div class="cat-hint">Nice, not necessary. Always check recalls on swings/bouncers.</div>
         </div>
         <ul class="items">
@@ -659,29 +675,13 @@
               <div class="prices"><span class="price one"><em>Est.</em> — <b>$40–80</b></span></div>
             </div>
           </li>
-          <li class="item" data-id="delivery-membership">
-            <label class="check"><input type="checkbox" aria-label="Mark purchased"><span class="box"></span></label>
-            <div class="item-body">
-              <div class="item-head"><span class="name">Delivery membership</span><span class="tag tag-used">N/A</span></div>
-              <p class="note">Prime or Walmart+ for midnight diaper runs.</p>
-              <div class="prices"><span class="price one"><em>Monthly</em> — <b>$15</b></span></div>
-            </div>
-          </li>
-          <li class="item" data-id="gift-card-buffer">
-            <label class="check"><input type="checkbox" aria-label="Mark purchased"><span class="box"></span></label>
-            <div class="item-body">
-              <div class="item-head"><span class="name">Gift-card buffer</span><span class="tag tag-used">N/A</span></div>
-              <p class="note">Set aside for the "we need X at 1 a.m." moments.</p>
-              <div class="prices"><span class="price one"><em>Est.</em> — <b>$50–100</b></span></div>
-            </div>
-          </li>
         </ul>
       </div>
 
-      <!-- N3 Babyproofing -->
+      <!-- N4 Babyproofing -->
       <div class="category reveal" data-id="babyproofing">
         <div class="cat-head">
-          <h3 class="cat-title"><span class="cat-num">03</span> Babyproofing (later, ~4–6 months)</h3>
+          <h3 class="cat-title"><span class="cat-num">04</span> Babyproofing (later, ~4–6 months)</h3>
           <div class="cat-hint">Not needed before she comes home — do it before she crawls.</div>
         </div>
         <ul class="items">
@@ -735,6 +735,22 @@
         <h2>The Money</h2>
         <p>Two paths, category by category. Free pump and free samples are baked in. All numbers are honest estimates, not promises.</p>
       </div>
+      <div class="panel selected-total reveal">
+        <h3>Selected so far</h3>
+        <div class="panel-sub">Running total of the options you've chosen. "Undecided" adds $0.</div>
+        <div class="selected-total-amount">$0</div>
+
+        <div class="sel-group" data-bucket="upfront">
+          <div class="sel-group-head"><h4>Upfront</h4><span class="sel-group-total">$0</span></div>
+          <ul class="selected-breakdown"></ul>
+        </div>
+        <div class="sel-group" data-bucket="later">
+          <div class="sel-group-head"><h4>Later</h4><span class="sel-group-total">$0</span></div>
+          <ul class="selected-breakdown"></ul>
+        </div>
+
+        <p class="selected-empty">Nothing selected yet — pick an option on any item and it'll show up here.</p>
+      </div>
       <div class="budget-grid">
         <div class="panel reveal">
           <h3>Upfront — Budget Path</h3>
@@ -780,14 +796,15 @@
 
       <div class="budget-grid" style="margin-top:18px;">
         <div class="panel reveal">
-          <h3>Deferred (first few months)</h3>
-          <div class="panel-sub">Buy after she's here, not before.</div>
+          <h3>Deferred (later)</h3>
+          <div class="panel-sub">Nice-to-haves — buy as you go.</div>
           <table class="break">
             <tbody>
-              <tr><td>Crib + new mattress + sheets</td><td class="num">$300–500</td></tr>
-              <tr><td>Stroller + carrier</td><td class="num">$190–380</td></tr>
+              <tr><td>Sleep (crib + mattress)</td><td class="num">$250–450</td></tr>
+              <tr><td>On the Go</td><td class="num">$250–440</td></tr>
+              <tr><td>Comfort &amp; Soothing</td><td class="num">$85–125</td></tr>
               <tr><td>Babyproofing</td><td class="num">$120–180</td></tr>
-              <tr class="total"><td>Total</td><td class="num">≈ $520–800</td></tr>
+              <tr class="total"><td>Total</td><td class="num">≈ $705–1,195</td></tr>
             </tbody>
           </table>
         </div>
@@ -1062,6 +1079,89 @@
 
       function renderAll() {
         Array.prototype.slice.call(document.querySelectorAll('.item')).forEach(renderItem);
+        renderSelectedTotal();
+      }
+
+      function renderSelectedTotal() {
+        var groups = {
+          upfront: { selected: 0, purchased: 0, cats: {} },
+          later:   { selected: 0, purchased: 0, cats: {} }
+        };
+
+        Array.prototype.slice.call(document.querySelectorAll('.item')).forEach(function (el) {
+          var id = el.getAttribute('data-id');
+          var opt = optionsState[id];
+          var entry = null;
+          if (opt && opt.selected && opt.selected !== 'undecided') {
+            entry = (opt.custom || []).filter(function (c) { return c.id === opt.selected; })[0];
+          }
+          var amt = 0;
+          if (entry) {
+            amt = parseInt(String(entry.price).replace(/\D/g, ''), 10);
+            if (isNaN(amt)) amt = 0;
+          }
+          var cb = el.querySelector('.check input[type="checkbox"]');
+          var purchased = cb ? cb.checked : false;
+
+          var section = el.closest('section');
+          var bucket = (section && section.id === 'nice-to-have') ? 'later' : 'upfront';
+          var catEl = el.closest('.category');
+          var catId = catEl ? catEl.getAttribute('data-id') : 'other';
+          var g = groups[bucket];
+
+          if (entry) {
+            g.selected += amt;
+            if (!g.cats[catId]) g.cats[catId] = { name: categoryLabel(catEl), total: 0 };
+            g.cats[catId].total += amt;
+          }
+          if (purchased) g.purchased += amt;
+        });
+
+        var grand = groups.upfront.selected + groups.later.selected;
+
+        setText('.sel-upfront', money(String(groups.upfront.selected)));
+        setText('.sel-later', money(String(groups.later.selected)));
+        setText('.pur-upfront', money(String(groups.upfront.purchased)));
+        setText('.pur-later', money(String(groups.later.purchased)));
+        setText('.selected-total-amount', money(String(grand)));
+
+        renderGroup('upfront', groups.upfront);
+        renderGroup('later', groups.later);
+
+        var emptyEl = document.querySelector('.selected-empty');
+        if (emptyEl) emptyEl.hidden = grand > 0;
+      }
+
+      function categoryLabel(catEl) {
+        if (!catEl) return 'Other';
+        var title = catEl.querySelector('.cat-title');
+        if (!title) return catEl.getAttribute('data-id');
+        var clone = title.cloneNode(true);
+        var num = clone.querySelector('.cat-num');
+        if (num) num.remove();
+        return clone.textContent.replace(/\s+/g, ' ').trim();
+      }
+
+      function setText(sel, text) {
+        var el = document.querySelector(sel);
+        if (el) el.textContent = text;
+      }
+
+      function renderGroup(bucket, g) {
+        var groupEl = document.querySelector('.sel-group[data-bucket="' + bucket + '"]');
+        if (!groupEl) return;
+        var totalEl = groupEl.querySelector('.sel-group-total');
+        if (totalEl) totalEl.textContent = money(String(g.selected));
+        var listEl = groupEl.querySelector('.selected-breakdown');
+        if (listEl) {
+          listEl.innerHTML = '';
+          Object.keys(g.cats).forEach(function (catId) {
+            var c = g.cats[catId];
+            var li = document.createElement('li');
+            li.innerHTML = '<span class="pick-name">' + esc(c.name) + '</span><span class="pick-price">' + money(String(c.total)) + '</span>';
+            listEl.appendChild(li);
+          });
+        }
       }
 
       function renderCustomItems() {
@@ -1140,8 +1240,10 @@
           optionsState[id].selected = t.value;
           writeOptions();
           renderItem(itemEl);
+          renderSelectedTotal();
         } else if (t.matches('.item input[type="checkbox"]')) {
           syncItems();
+          renderSelectedTotal();
         }
       });
 
@@ -1199,6 +1301,7 @@
           if (optionsState[id].selected === did) optionsState[id].selected = 'undecided';
           writeOptions();
           renderItem(itemEl);
+          renderSelectedTotal();
         } else if (t.classList.contains('edit-item')) {
           var ci = findItem(id);
           if (!ci) return;
@@ -1246,6 +1349,7 @@
           form.reset();
           writeOptions();
           renderItem(itemEl);
+          renderSelectedTotal();
 
         } else if (form.classList.contains('item-form')) {
           e.preventDefault();

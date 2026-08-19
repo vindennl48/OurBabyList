@@ -959,6 +959,8 @@
       var optionsState = {};        // data-id -> { selected, custom: [...] }
       var customItemsState = {};    // category-id -> [ { id, name, note, tag, price } ]
       var lastCustomItemsJson = null;
+      var rendered = {};        // data-id -> last-rendered signature (skip unchanged items)
+      var lastTotalSig = null;  // last-rendered totals signature (skip unchanged totals)
 
       function ensureOpt(id) {
         if (!optionsState[id]) optionsState[id] = { selected: 'undecided', custom: [] };
@@ -1044,6 +1046,10 @@
       function renderItem(itemEl) {
         var id = itemEl.getAttribute('data-id');
         var opt = optionsState[id] || { selected: 'undecided', custom: [] };
+        var sig = JSON.stringify(opt);
+        if (rendered[id] === sig) return; // unchanged — avoid DOM churn and flicker
+        rendered[id] = sig;
+
         var list = itemEl.querySelector('.options');
         var badge = itemEl.querySelector('.chosen-price');
 
@@ -1116,6 +1122,10 @@
           }
           if (purchased) g.purchased += amt;
         });
+
+        var sig = JSON.stringify(groups);
+        if (sig === lastTotalSig) return;
+        lastTotalSig = sig;
 
         var grand = groups.upfront.selected + groups.later.selected;
 

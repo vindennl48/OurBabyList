@@ -830,7 +830,7 @@
 
   <footer class="wrap">
     <div class="foot-name">Emery Laine ♡ February 3, 2027</div>
-    <div>Made with love · Our Baby List · checkmarks save automatically in this browser</div>
+    <div>Made with love · Our Baby List</div>
     <div class="sources">Sources: <a href="https://6abc.com/post/consumer-reports-releases-2026-top-picks-baby-gear/19415550/">Consumer Reports</a> · <a href="https://www.healthychildren.org/English/ages-stages/baby/sleep/Pages/A-Parents-Guide-to-Safe-Sleep.aspx">AAP safe sleep</a> · <a href="https://www.cpsc.gov/Recalls">CPSC recalls</a> · <a href="https://aeroflowbreastpumps.com/blog/can-i-get-a-breast-pump-through-insurance">Aeroflow pump</a> · <a href="https://www.cdc.gov/breastfeeding-special-circumstances/hcp/diet-micronutrients/vitamin-d.html">Vitamin D (CDC)</a> · <a href="https://www.mayoclinic.org/healthy-lifestyle/infant-and-toddler-health/in-depth/umbilical-cord/art-20048250">Cord care</a> · <a href="https://www.healthychildren.org/English/ages-stages/baby/crying-colic/Pages/Pacifiers-and-Thumb-Sucking.aspx">Pacifiers</a> · <a href="https://www.cdc.gov/infant-feeding-emergencies-toolkit/php/checklist.html">CDC emergency kit</a></div>
   </footer>
 
@@ -842,36 +842,6 @@
         });
       }, { threshold: 0.08 });
       document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
-    })();
-  </script>
-
-  <script>
-    // Persist checkmarks to localStorage so they survive reloads (per-browser; see AGENTS.md).
-    (function () {
-      var STORE = 'ourbabylist.checklist.v1';
-      var inputs = document.querySelectorAll('.item input[type="checkbox"]');
-
-      function keyFor(input) {
-        var nameEl = input.closest('.item').querySelector('.name');
-        return nameEl ? nameEl.textContent.replace(/\s+/g, ' ').trim().toLowerCase() : null;
-      }
-
-      var saved = {};
-      try { saved = JSON.parse(localStorage.getItem(STORE) || '{}'); } catch (e) { saved = {}; }
-
-      inputs.forEach(function (input) {
-        var key = keyFor(input);
-        if (!key) return;
-        if (saved[key]) { input.checked = true; }
-        input.addEventListener('change', function () {
-          var state = {};
-          inputs.forEach(function (b) {
-            var k = keyFor(b);
-            if (k) state[k] = b.checked;
-          });
-          try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) {}
-        });
-      });
     })();
   </script>
 </body>

@@ -15,7 +15,7 @@ single-page baby-prep checklist for our daughter Emery Laine (due February 3,
 | Hosting | GitHub Pages (`main` branch, `/ (root)`) |
 | Fonts | Google Fonts via `<link>` (Fraunces, DM Sans, Caveat) — works offline from `file://` |
 | Styling | Single `styles.css`, theming via CSS custom properties |
-| JS | Scroll-reveal (`IntersectionObserver`) + checkbox `localStorage` persistence. No other scripting. |
+| JS | One `IntersectionObserver` scroll-reveal at the bottom of `index.html`. Nothing else. |
 
 ---
 
@@ -105,10 +105,8 @@ Key variables: `--bg`, `--surface`, `--ink`, `--ink-soft`, `--accent`,
 ## 5. Content & Editing Conventions
 
 - **Static prices.** There is deliberately **no cost calculator**. Checkboxes are
-  visual-only and **persist to `localStorage`** (key `ourbabylist.checklist.v1`,
-  keyed by item name). Do not add JavaScript that totals prices unless the owner
-  asks. State is **per-browser** — not synced across devices; renaming an item's
-  text resets that one checkmark (keys are derived from the `.name` text).
+  visual-only (`:checked` styling in CSS) and must not sum anything. Do not add
+  JavaScript that totals prices unless the owner asks for it.
 - **Keep the budget tables in sync.** `section#budget` contains two itemized
   tables ("Budget Path" ≈ $1,250, "Comfortable Path" ≈ $1,890) plus deferred and
   monthly totals, and four `.stat` pills in the hero. If you change an item's
